@@ -3,6 +3,7 @@ install.packages('Hmisc')
 install.packages('UsingR')
 install.packages("sciplot")
 install.packages("tidyverse") # Adicionado para tentar resolver recode_factor - resolvido :) 
+install.packages('reshape2')
 
 library(Hmisc)
 library(ggplot2)
@@ -82,4 +83,52 @@ library(car)
 sex<-recode(gender,"1='1';2='0'")
 sex
 plot(hr~tc, pch=23, bg=c('red', 'blue')[factor(sex)])
+
+#Lendo os dados Pulse
+
+dados = read.table('Pulse.csv', head=T, sep=";", dec=",")
+
+dados
+head(dados)
+str(dados)
+attach(dados)
+names(dados)
+dados[,1:3]
+
+summary(dados[,1:3])
+table(Ran)
+table(Ran,Sex)
+
+mean(P1)
+sd(P1)
+
+library(psych)
+describeBy(P1,factor(Ran))
+describeBy(P2,factor(Ran))
+
+#Convertendo o formato dos dados
+#Pulse está em "wide format"
+#P1 P2 ...
+head(dados)
+dat.wide<-dados
+
+dat.wide
+names(dat.wide)
+
+library(reshape2)
+#Convertendo do formato wide para o long
+melt(olddata_wide, id.vars=c("subject", "sex"))
+dat.long <- melt(dat.wide,id.vars=c("Ran","Fu","Sex","Altura", "Peso", "Ativ"))
+head(dat.long)
+
+#Convertendo do formato wide para long
+dat.wide <- dcast(dat.long,  Ran + Fu + Sex + Altura + Peso + Ativ  ~ variable, value.var="value")
+head(dat.wide)
+
+dat.long
+interaction.plot(dat.long$variable,dat.long$Ran,dat.long$value, type="b", col=c(1:3), 
+                 leg.bty="o", leg.bg="beige", lwd=2, pch=c(18,24,22), 
+                 xlab="Ran", 
+                 ylab="Pulse", 
+                 main="Perfis de Médias-Interação")
 
