@@ -1,35 +1,8 @@
-#Gerando dados
-#Exemplo de comandos no R para gerar dados de P2:
-
-r2<-25 #numero de replicas
-sigma2<-6  # variancia
-
-# medias 
-mi201<-75
-mi202<-80
-mi211<-80
-mi212<-86
-mi221<-90
-mi222<-97
-
-y201<-rnorm(r2,mi201,sigma2)
-y202<-rnorm(r2,mi202,sigma2)
-y211<-rnorm(r2,mi211,sigma2)
-y212<-rnorm(r2,mi212,sigma2)
-y221<-rnorm(r2,mi221,sigma2)
-y222<-rnorm(r2,mi222,sigma2)
-
-y2<-stack(data.frame(cbind(y201,y202,y211,y212,y221,y222)))
-
-fg2<-rep(0:2,each=50)
-ft2<-rep(rep(1:2,each=25),3)
-dat<-data.frame(cbind(y2,fg2,ft2))
-dat
-
+# Lista 01 - Ex 01
 nReplica<-25 #numero de replicas
 sigma2<-6  # variancia
 
-#medias 
+#medias população 1 
 mi11aa<-80
 mi11Aa<-80
 mi11AA<-80
@@ -38,21 +11,75 @@ mi12aa<-90
 mi12Aa<-90
 mi12AA<-90
 
+#medias população 2 
+mi21aa<-75
+mi21Aa<-80
+mi21AA<-90
+
+mi22aa<-80
+mi22Aa<-86
+mi22AA<-97
+
+#medias população 3  
+mi31aa<-75
+mi31Aa<-80
+mi31AA<-85
+
+mi32aa<-75
+mi32Aa<-85
+mi32AA<-100
+
+#Populacao 1
+
 aa<-rnorm(nReplica,mi11aa,sigma2)
 Aa<-rnorm(nReplica,mi11Aa,sigma2)
 AA<-rnorm(nReplica,mi11AA,sigma2)
-
-t1 = stack(data.frame(cbind(aa,Aa,AA)))
-
+t11 = stack(data.frame(cbind(aa,Aa,AA)))
 
 aa<-rnorm(nReplica,mi12aa,sigma2)
 Aa<-rnorm(nReplica,mi12Aa,sigma2)
 AA<-rnorm(nReplica,mi12AA,sigma2)
+t12<-stack(data.frame(cbind(aa,Aa,AA)))
 
-t2<-stack(data.frame(cbind(aa,Aa,AA)))
+t1<-rep(1:2,each=75)
+d1<-rbind(t11,t12)
+pop1<-data.frame(d1,t1)
 
-t<-rep(1:2,each=75)
-d<-rbind(t1,t2)
-dados<-data.frame(d,t)
+summary(pop1)
 
-summary(dados)
+#Populacao 2
+
+aa<-rnorm(nReplica,mi21aa,sigma2)
+Aa<-rnorm(nReplica,mi21Aa,sigma2)
+AA<-rnorm(nReplica,mi21AA,sigma2)
+t21 = stack(data.frame(cbind(aa,Aa,AA)))
+
+aa<-rnorm(nReplica,mi22aa,sigma2)
+Aa<-rnorm(nReplica,mi22Aa,sigma2)
+AA<-rnorm(nReplica,mi22AA,sigma2)
+t22<-stack(data.frame(cbind(aa,Aa,AA)))
+
+t2<-rep(1:2,each=75)
+d2<-rbind(t21,t22)
+pop2<-data.frame(d2,t2)
+
+summary(pop2)
+
+#Populacao 3
+
+aa<-rnorm(nReplica,mi31aa,sigma2)
+Aa<-rnorm(nReplica,mi31Aa,sigma2)
+AA<-rnorm(nReplica,mi31AA,sigma2)
+t31 = stack(data.frame(cbind(aa,Aa,AA)))
+
+aa<-rnorm(nReplica,mi32aa,sigma2)
+Aa<-rnorm(nReplica,mi32Aa,sigma2)
+AA<-rnorm(nReplica,mi32AA,sigma2)
+t32<-stack(data.frame(cbind(aa,Aa,AA)))
+
+t3<-rep(1:2,each=75)
+d3<-rbind(t31,t32)
+pop3<-data.frame(d3,t3)
+
+summary(pop3)
+
